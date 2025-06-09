@@ -9,7 +9,7 @@
 - 軸には，縦軸「力(kN)」，横軸「たわみ(m)」のラベルが付いている．
 - 図の右上に凡例が入っている．
 
-![前半で作成したグラフがここに入る](force.png)
+![関数のプロット](force.png)
 
 ## 2. 関数のプロット
 
@@ -22,9 +22,17 @@
 - 凡例は，`f1(x)` と `f2(x)` にする．
 
 ![関数のプロット](funcplot.png)
-
+y
 ```gnuplot {cmd=true output="html"}
 set terminal svg
+set xrange [0:7]
+set yrange [-20:15]
+set title "関数のプロット"
+set grid
+set xlabel "x"
+set ylabel "y"
+plot 2*x**2*sqrt(x)-5*x**2 title "f1(x)", x/log(x) title "f2(x)"
+
 
 ```
 
@@ -47,6 +55,18 @@ set xdata time
 set timefmt '%Y/%m/%d'
 set xtics format "%m/%d"
 
+set datafile separator comma
+set title "八王子の気温(過去の一年間)
+set ylabel "温度"
+set xlabel "日付"
+set grid
+
+
+plot "weather2025.csv" u 1:2 w l t "最高気温",\
+"weather2025.csv" u 1:3 w l t "最高気温（平年）",\
+"weather2025.csv" u 1:4 w l t "最低気温 ",\
+"weather2025.csv" u 1:5 w l t "最低気温 (平年)",\
+
 ```
 
 ## 4． 誕生月
@@ -66,6 +86,11 @@ set xtics format "%m/%d"
 ```gnuplot {cmd=true, output="html"}
 set terminal svg
 unset key
-
-
+set style fill solid
+set boxwidth 0.6
+set yrange [0:16]
+set grid
+set title "誕生日の月別人数"
+set ylabel "人" offset graph 0,0.5 rotate by 0
+plot "bm.txt" using 1:2:xtic(1) with boxes linecolor "skyblue"
 ```
